@@ -7,7 +7,7 @@ use std::slice;
 #[no_mangle]
 pub extern "C" fn bn254_add(
     buf: *mut cty::uint8_t,
-    max_len: cty::uint8_t,
+    max_len: cty::uint32_t,
 ) -> cty::c_int {
     if max_len < 128 {
         ReturnCodes::InvalidInput as i32
@@ -28,7 +28,7 @@ pub extern "C" fn bn254_add(
 #[no_mangle]
 pub extern "C" fn bn254_scalar_mul(
     buf: *mut cty::uint8_t,
-    max_len: cty::uint8_t,
+    max_len: cty::uint32_t,
 ) -> cty::c_int {
     if max_len < 96 {
         ReturnCodes::InvalidInput as i32
@@ -49,7 +49,7 @@ pub extern "C" fn bn254_scalar_mul(
 #[no_mangle]
 pub extern "C" fn bn254_pairing(
     buf: *mut cty::uint8_t,
-    max_len: cty::c_uint,
+    max_len: cty::uint32_t,
 ) -> cty::c_int {
     if max_len < 192 {
         ReturnCodes::InvalidInput as i32
