@@ -6,9 +6,9 @@ use crate::errors::{Errors, Error};
 /// Pair element length.
 /// `PAIR` elements are composed of an uncompressed G1 point (64 bytes) and an uncompressed G2 point
 /// (128 bytes).
-pub const PAIR_ELEMENT_LEN: usize = 64 + 128;
+pub(crate) const PAIR_ELEMENT_LEN: usize = 64 + 128;
 
-pub fn run_pair(
+pub(crate) fn run_pair(
     input: &[u8]
 ) -> Result<[u8; 32], Errors> {
     if input.len() % PAIR_ELEMENT_LEN != 0 {

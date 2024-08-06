@@ -4,9 +4,9 @@ use crate::utilities::{read_point, right_pad};
 
 /// Input length for the add operation.
 /// `ADD` takes two uncompressed G1 points (64 bytes each).
-pub const ADD_INPUT_LEN: usize = 64 + 64;
+pub(crate) const ADD_INPUT_LEN: usize = 64 + 64;
 
-pub fn run_add(input: &[u8]) -> Result<[u8; 64], Errors> {
+pub(crate) fn run_add(input: &[u8]) -> Result<[u8; 64], Errors> {
     let input = right_pad::<ADD_INPUT_LEN>(input);
 
     let p1 = read_point(&input[..64])?;
