@@ -4,7 +4,6 @@ use core::fmt;
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum Errors {
     Error(Error),
-    Fatal { msg: String },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
