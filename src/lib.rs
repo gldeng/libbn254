@@ -3,6 +3,6 @@ mod api;
 mod return_codes;
 mod mul;
 mod utilities;
-mod primitives;
+mod errors;
 
-pub use primitives::PrecompileError as Error;
+pub use errors::Error;

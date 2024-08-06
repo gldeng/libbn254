@@ -2,13 +2,13 @@ use core::fmt;
 
 /// Precompile errors.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub enum PrecompileErrors {
-    Error(PrecompileError),
+pub enum Errors {
+    Error(Error),
     Fatal { msg: String },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub enum PrecompileError {
+pub enum Error {
     // Bn128 errors
     Bn128FieldPointNotAMember,
     Bn128AffineGFailedToCreate,
@@ -18,23 +18,23 @@ pub enum PrecompileError {
 }
 
 
-impl PrecompileError {
+impl Error {
     /// Returns an other error with the given message.
     pub fn other(err: impl Into<String>) -> Self {
         Self::Other(err.into())
     }
 }
 
-impl From<PrecompileError> for PrecompileErrors {
-    fn from(err: PrecompileError) -> Self {
-        PrecompileErrors::Error(err)
+impl From<Error> for Errors {
+    fn from(err: Error) -> Self {
+        Errors::Error(err)
     }
 }
 
 #[cfg(feature = "std")]
-impl std::error::Error for PrecompileError {}
+impl std::error::Error for Error {}
 
-impl fmt::Display for PrecompileError {
+impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
             Self::Bn128FieldPointNotAMember => "field point not a member of bn128 curve",

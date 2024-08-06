@@ -1,12 +1,12 @@
 use bn::AffineG1;
-use crate::primitives::PrecompileErrors;
+use crate::errors::Errors;
 use crate::utilities::{read_point, right_pad};
 
 /// Input length for the multiplication operation.
 /// `MUL` takes an uncompressed G1 point (64 bytes) and scalar (32 bytes).
 pub const MUL_INPUT_LEN: usize = 64 + 32;
 
-pub fn run_mul(input: &[u8]) -> Result<[u8; 64], PrecompileErrors> {
+pub fn run_mul(input: &[u8]) -> Result<[u8; 64], Errors> {
     let input = right_pad::<MUL_INPUT_LEN>(input);
 
     let p = read_point(&input[..64])?;
@@ -26,7 +26,7 @@ pub fn run_mul(input: &[u8]) -> Result<[u8; 64], PrecompileErrors> {
 #[cfg(test)]
 mod tests {
     use crate::Error;
-    use crate::primitives::PrecompileErrors;
+    use crate::errors::Errors;
     use crate::mul::run_mul;
 
     #[test]
@@ -91,7 +91,7 @@ mod tests {
         let res = run_mul(&input);
         assert!(matches!(
             res,
-            Err(PrecompileErrors::Error(Error::Bn128AffineGFailedToCreate))
+            Err(Errors::Error(Error::Bn128AffineGFailedToCreate))
         ));
     }
 }
