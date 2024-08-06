@@ -4,7 +4,7 @@ use crate::mul::run_mul;
 use std::slice;
 
 #[no_mangle]
-pub extern "C" fn add(
+pub extern "C" fn bn254_add(
     buf: *mut cty::uint8_t,
     max_len: cty::c_int,
 ) -> cty::c_int {
@@ -25,7 +25,7 @@ pub extern "C" fn add(
 }
 
 #[no_mangle]
-pub extern "C" fn scalar_mul(
+pub extern "C" fn bn254_scalar_mul(
     buf: *mut cty::uint8_t,
     max_len: cty::c_int,
 ) -> cty::c_int {
@@ -47,7 +47,6 @@ pub extern "C" fn scalar_mul(
 
 #[cfg(test)]
 mod tests {
-    use crate::add::run_add;
     use super::*;
     use crate::return_codes::ReturnCodes;
 
@@ -70,7 +69,7 @@ mod tests {
         )
             .unwrap();
 
-        let res = add(buffer.as_mut_ptr(), 128);
+        let res = bn254_add(buffer.as_mut_ptr(), 128);
         assert_eq!(res, ReturnCodes::Success as i32);
         assert_eq!(buffer[..64], expected);
     }
@@ -92,7 +91,7 @@ mod tests {
             031b8ce914eba3a9ffb989f9cdd5b0f01943074bf4f0f315690ec3cec6981afc",
         )
             .unwrap();
-        let res = scalar_mul(buffer.as_mut_ptr(), 96);
+        let res = bn254_scalar_mul(buffer.as_mut_ptr(), 96);
         assert_eq!(res, ReturnCodes::Success as i32);
         assert_eq!(buffer[..64], expected);
     }
